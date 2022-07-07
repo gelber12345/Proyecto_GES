@@ -13,28 +13,27 @@ object MarkerMap {
 
     private val marks: MutableList<Mark> = mutableListOf(
         Mark(
-            "HOSPITAL REGIONAL HONORIO DELGADO ESPINOZA", -16.4157, -71.5331,
-            "AREQUIPA", 12.2,15.0,12.0 ,"Av. Daniel Alcides Carrión Nº 505"
+            "Primax", -16.42572, -71.53295,
+            "AREQUIPA", 12.2,15.0,12.0 ,"Av. Perú 37, José Luis Bustamante y Rivero 04009"
         ),
         Mark(
-            "CENTRO DE SALUD AMPLIACIÓN PAUCARPATA", -16.4271, -71.5034,
-            "AREQUIPA", 12.2,15.0,12.0 , "AVENIDA AVENIDA KENNEDY 2101"
+            "Repsol", -16.424914437361867, -71.52419638903005,
+            "AREQUIPA", 12.2,15.0,12.0 , "Av. Dolores 154, José Luis Bustamante y Rivero 04002"
         ),
         Mark(
-            "HOSPITAL GOYENECHE", -16.4016, -71.5284,
-            "AREQUIPA", 12.2,15.0,12.0 , "AREQUIPA,AV. GOYENECHE S/N"
+            "Petro Peru", -16.41021013963542, -71.53301146575326,
+            "AREQUIPA", 12.2,15.0,12.0 , "HFQ8+VRC, Arequipa 04001"
         ),
         Mark(
-            "CENTRO DE SALUD CAMPO MARTE", -16.4273, -71.4967,
+            "PETROLL SUR II", -16.4273, -71.4967,
             "AREQUIPA", 12.2,15.0,12.0 ,"AVENIDA AV. KENNEDY 2101"
         ),
         Mark(
-            "PUESTO DE SALUD SALAVERRY",
-            -16.4349,
-            -71.5364,
+            "Estación De Servicio PRIMAX",
+            -16.413872019780776, -71.543351154688,
             "AREQUIPA",
             12.2,15.0,12.0 ,
-            "SOCABAYA AVENIDA AV. LAS PEÑAS S/N SALAVERRY-SOCABAYA S/N AV. LAS PEÑAS S/N SALAVERRY-"
+            "Vía Rápida Venezuela 95, Arequipa 04001"
         ),
     )
 
