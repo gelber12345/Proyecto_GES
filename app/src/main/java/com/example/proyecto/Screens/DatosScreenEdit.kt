@@ -155,7 +155,7 @@ fun DatosScreenEdit(navController: NavController){
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
-                        Text("Ultimo mantenimiento :  $datePicked",
+                        Text("Ultimo mantenimiento :  $fechaM",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                         )

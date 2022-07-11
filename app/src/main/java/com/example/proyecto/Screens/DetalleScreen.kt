@@ -53,7 +53,7 @@ fun DetalleScreen(navController: NavController, text: String?) {
             .fillMaxSize()
             .padding(20.dp, 16.dp)
             .border(5.dp, color = Color(2, 136, 209), shape = RoundedCornerShape(8))
-            .background(Color(179, 229, 252), shape = RoundedCornerShape(8))
+            .background(Color(18, 114, 163), shape = RoundedCornerShape(8))
             .padding(10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -118,12 +118,22 @@ fun DetalleScreen(navController: NavController, text: String?) {
             LazyColumn() {
                 text?.let {
                     items(list) { dato ->
-                        Card {
-                            Text(
-                                text = "Fecha : " + dato.fecha.toString() + "\n" +
-                                        "Autor : " + dato.Autor + "\n" +
-                                        "Descripcion:  " + dato.Description
-                            )
+                        Card ( shape = RoundedCornerShape(15.dp),
+                            backgroundColor = Color(240, 240, 240),
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .fillMaxWidth()
+                                .padding(2.dp),
+                            elevation = 5.dp){
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                Text(
+                                    text = "Fecha : " + dato.fecha.dayOfMonth.toString() + "/" + dato.fecha.month.toString() + "/" + dato.fecha.year.toString() + "\n" +
+                                            "Autor : " + dato.Autor + "\n" +
+                                            "Descripcion:  " + dato.Description,
+                                    Modifier.padding(start = 4.dp, end = 4.dp)
+
+                                )
+                            }
                         }
                         Spacer(Modifier.height(10.0.dp))
                     }

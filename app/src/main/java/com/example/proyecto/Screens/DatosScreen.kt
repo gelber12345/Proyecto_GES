@@ -126,13 +126,14 @@ fun DatosScreen(navController: NavController){
                             contentDescription = "Mantenimiento",
                             modifier = Modifier
                                 .height(40.dp)
-                                .width(40.dp),
+                                .width(40.dp).weight(1.0f),
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
                         Text("Ultimo mantenimiento : $fechaM",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(2.0f),
                         )
                     }
                     Spacer(Modifier.height(16.dp))

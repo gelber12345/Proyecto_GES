@@ -19,15 +19,15 @@ object CommentGasolinera {
     private val marks: MutableList<Comment> = mutableListOf(
         Comment(
             "Anonimo","El precio real del GLP es 12.10",
-            formatToInstant("2022-06-22T11:25:44.973"),"HOSPITAL REGIONAL HONORIO DELGADO ESPINOZA"
+            formatToInstant("2022-06-22T11:25:44.973"),"Primax"
         ),
         Comment(
             "Anonimo","El precio real del GLP es 10.10",
-            formatToInstant("2020-06-22T11:25:44.973"),"HOSPITAL REGIONAL HONORIO DELGADO ESPINOZA"
+            formatToInstant("2020-06-22T11:25:44.973"),"Primax"
         ),
         Comment(
             "Anonimo","El precio real del GLP es 11.10",
-            formatToInstant("2021-06-22T11:25:44.973"),"HOSPITAL REGIONAL HONORIO DELGADO ESPINOZA"
+            formatToInstant("2021-06-22T11:25:44.973"),"Primax"
         ),
     )
 
