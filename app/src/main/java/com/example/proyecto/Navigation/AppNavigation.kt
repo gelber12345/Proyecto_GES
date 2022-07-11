@@ -8,10 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.proyecto.Screens.ComentScreen
-import com.example.proyecto.Screens.DatosScreen
-import com.example.proyecto.Screens.DetalleScreen
-import com.example.proyecto.Screens.MapScreen
+import com.example.proyecto.Screens.*
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -45,6 +42,11 @@ fun AppNavigation(
             route = AppScreens.CuentaScreen.route
         ) {
             DatosScreen(navController)
+        }
+        composable(
+            route = AppScreens.CuentaEditScreen.route
+        ) {
+            DatosScreenEdit(navController)
         }
     }
 }

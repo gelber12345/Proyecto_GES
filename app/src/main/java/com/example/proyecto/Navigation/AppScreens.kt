@@ -16,4 +16,5 @@ sealed class AppScreens(
     object DetalleScreen : AppScreens("detalle_screen", "Eventos", Icons.Filled.Home)
     object ComentarioScreen : AppScreens("comentario_screen", "Eventos", Icons.Filled.Home)
     object CuentaScreen : AppScreens("cuenta_screen", "Eventos", Icons.Filled.AccountCircle)
+    object CuentaEditScreen : AppScreens("cuenta_edit_screen", "EditCuenta", Icons.Filled.AccountCircle)
 }

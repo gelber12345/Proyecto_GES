@@ -1,35 +1,41 @@
 package com.example.proyecto.Screens
 
-
-import android.os.Build
+import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto.Navigation.AppScreens
 import com.example.proyecto.R
+import com.example.proyecto.Screens.Components.DateFormater
+import com.example.proyecto.Screens.Components.DatePickerview
 import com.example.proyecto.model.Data
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun DatosScreen(navController: NavController){
+fun DatosScreenEdit(navController: NavController){
 
-    var placa by remember { mutableStateOf("7SD AS2")}
-    var soat by remember { mutableStateOf("SOAT")}
-    var fechaM by remember { mutableStateOf("12/10/21")}
+    var placa by remember { mutableStateOf("") }
+    var soat by remember { mutableStateOf("") }
+    var fechaM by remember { mutableStateOf("12/10/21") }
+    var datePicked:String? by remember { mutableStateOf(null) }
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -49,6 +55,9 @@ fun DatosScreen(navController: NavController){
         dataStore.getDate.collect { data ->
             fechaM = data
         }
+    }
+    val updatedDate = { date : String ->
+        datePicked = date
     }
 
     Box (
@@ -100,6 +109,15 @@ fun DatosScreen(navController: NavController){
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                         )
+
+                        OutlinedTextField(
+                            value = placa,
+                            onValueChange = { placa = it },
+                            label = { Text("Placa") },
+                            placeholder = { Text(text = "$placa") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                        )
+
                     }
                     Spacer(Modifier.height(16.dp))
 
@@ -113,9 +131,16 @@ fun DatosScreen(navController: NavController){
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
-                        Text("SOAT : $soat",
+                        Text("SOAT : ",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
+                        )
+                        OutlinedTextField(
+                            value = soat,
+                            onValueChange = { soat = it },
+                            label = { Text("SOAT") },
+                            placeholder = { Text(text = "$soat") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
                     }
                     Spacer(Modifier.height(16.dp))
@@ -130,15 +155,33 @@ fun DatosScreen(navController: NavController){
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
-                        Text("Ultimo mantenimiento : $fechaM",
+                        Text("Ultimo mantenimiento :  $datePicked",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                         )
+
+
                     }
+                    Spacer(Modifier.height(8.dp))
+                    Row() {
+
+                        DatePickerview(updatedDate)
+
+                    }
+
+
                     Spacer(Modifier.height(16.dp))
 
                     Button(onClick = {
-                        navController.navigate(AppScreens.CuentaEditScreen.route )
+                        scope.launch {
+
+                            datePicked?.let { dataStore.saveDate(it) }
+                            dataStore.savePlaca(placa)
+                            dataStore.saveSoat(soat)
+                        }
+
+                        navController.navigate(AppScreens.CuentaScreen.route )
+
 
                     }) {
                         Text(text = "EDITAR")
