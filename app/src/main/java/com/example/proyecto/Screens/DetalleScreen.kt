@@ -127,7 +127,7 @@ fun DetalleScreen(navController: NavController, text: String?) {
                             elevation = 5.dp){
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 Text(
-                                    text = "Fecha : " + dato.fecha.dayOfMonth.toString() + "/" + dato.fecha.month.toString() + "/" + dato.fecha.year.toString() + "\n" +
+                                    text = "Fecha : " + dato.fecha.dayOfMonth.toString() + "/" + dato.fecha.monthValue + "/" + dato.fecha.year.toString() + "\n" +
                                             "Autor : " + dato.Autor + "\n" +
                                             "Descripcion:  " + dato.Description,
                                     Modifier.padding(start = 4.dp, end = 4.dp)

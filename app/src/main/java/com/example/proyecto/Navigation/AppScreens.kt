@@ -17,4 +17,7 @@ sealed class AppScreens(
     object ComentarioScreen : AppScreens("comentario_screen", "Eventos", Icons.Filled.Home)
     object CuentaScreen : AppScreens("cuenta_screen", "Cuenta", Icons.Filled.AccountCircle)
     object CuentaEditScreen : AppScreens("cuenta_edit_screen", "Cuenta", Icons.Filled.AccountCircle)
+    object LoginScreen : AppScreens("login_screen", "Iniciar Sesion", Icons.Filled.AccountCircle)
+    object RegisterScreen : AppScreens("register_screen", "Registrarse", Icons.Filled.AccountCircle)
+    object VistaScreen : AppScreens("vista_screen", "Vista", Icons.Filled.AccountCircle)
 }

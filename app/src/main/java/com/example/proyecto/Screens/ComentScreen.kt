@@ -1,6 +1,7 @@
 package com.example.proyecto.Screens
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -24,13 +26,30 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto.Navigation.AppScreens
 import com.example.proyecto.model.CommentGasolinera
+import com.example.proyecto.model.CommentGasolinera.formatToString
+import com.example.proyecto.model.Data
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.collect
 import java.time.LocalDateTime
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ComentScreen(navController: NavController, text: String?){
 
     var comentario by remember { mutableStateOf("") }
+    val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    val context = LocalContext.current
+    var autor by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val dataStore = Data(context)
+
+    LaunchedEffect(scope) {
+        dataStore.getName.collect { data ->
+            autor = data
+        }
+    }
+
 
     Scaffold(topBar = {
         TopAppBar() {
@@ -91,19 +110,45 @@ fun ComentScreen(navController: NavController, text: String?){
                         OutlinedTextField(
                             value = comentario,
                             onValueChange = { comentario = it },
-                            label = { Text("Correo Electrónico") },
-                            placeholder = { Text(text = "Ingrese su correo electrónico") },
+                            label = { Text("Comentario") },
+                            placeholder = { Text(text = "Ingrese su comentario") },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
                         Spacer(Modifier.height(16.dp))
 
+
+                        val data = HashMap<String, String>()
+                        data["Autor"] = autor
+                        data["Description"] = comentario
+                        data["fecha"] = LocalDateTime.now().toString()
+                        data["gasolinera"] = text!!
+
+
+
                         Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            if (text != null) {
-                                addComent(comentario,text)
-                            }
+
+                                db.collection("Comentarios")
+                                    .add(data)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            context,
+                                            "Comentario Registrado",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(
+                                            context,
+                                            "ERROR - El Comentario no pudo ser registrado",
+                                            Toast.LENGTH_LONG
+                                        )
+                                            .show()
+                                    }
+                                addComent(comentario,text,autor)
+
                             navController.navigate(AppScreens.DetalleScreen.route + "/${text}")
-                            navController.popBackStack()
+
                         }
                         }) {
                             Text(text = "Añadir Comentario")
@@ -119,10 +164,10 @@ fun ComentScreen(navController: NavController, text: String?){
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun addComent(valor: String,gasolinera:String){
+fun addComent(valor: String,gasolinera:String,autor: String){
     if (valor!=""){
         CommentGasolinera.addComment(
-            CommentGasolinera.Comment("Anonimo",valor,
+            CommentGasolinera.Comment(autor,valor,
                 LocalDateTime.now(),gasolinera
             ))
     }

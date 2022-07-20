@@ -12,7 +12,7 @@ object MarkerMap {
     )
 
     private val marks: MutableList<Mark> = mutableListOf(
-        Mark(
+        /*Mark(
             "Primax", -16.42572, -71.53295,
             "AREQUIPA", 12.2,15.0,12.0 ,"Av. Perú 37, José Luis Bustamante y Rivero 04009"
         ),
@@ -34,13 +34,20 @@ object MarkerMap {
             "AREQUIPA",
             12.2,15.0,12.0 ,
             "Vía Rápida Venezuela 95, Arequipa 04001"
-        ),
+        ),*/
     )
 
     fun getListIterator(): MutableListIterator<Mark> {
         return marks.listIterator()
     }
-
+    fun add(mark:Mark){
+        if (!contains(mark)){
+            marks.add(mark)
+        }
+    }
+    fun getList(): MutableList<Mark> {
+        return marks
+    }
     fun getMark(nom: String): Mark {
         marks.forEach() {
             if (nom == it.nombre) {
@@ -48,5 +55,14 @@ object MarkerMap {
             }
         }
         return marks[0];
+    }
+
+    private fun contains(mark:Mark): Boolean{
+        marks.forEach(){
+            if (it.nombre == mark.nombre){
+                return true
+            }
+        }
+        return false
     }
 }

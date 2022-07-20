@@ -1,6 +1,10 @@
 package com.example.proyecto.Screens
 
+import android.os.Build
+import android.util.Log
 import android.widget.DatePicker
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -25,10 +29,15 @@ import com.example.proyecto.Navigation.AppScreens
 import com.example.proyecto.R
 import com.example.proyecto.Screens.Components.DateFormater
 import com.example.proyecto.Screens.Components.DatePickerview
+import com.example.proyecto.model.CommentGasolinera
 import com.example.proyecto.model.Data
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import java.time.LocalDateTime
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DatosScreenEdit(navController: NavController){
 
@@ -36,11 +45,16 @@ fun DatosScreenEdit(navController: NavController){
     var soat by remember { mutableStateOf("") }
     var fechaM by remember { mutableStateOf("12/10/21") }
     var datePicked:String? by remember { mutableStateOf(null) }
-
+    var autor by remember { mutableStateOf("") }
+    val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dataStore = Data(context)
-
+    LaunchedEffect(scope) {
+        dataStore.getSesion.collect { data ->
+            autor = data
+        }
+    }
     LaunchedEffect(scope) {
         dataStore.getPlaca.collect { data ->
             placa = data
@@ -155,7 +169,7 @@ fun DatosScreenEdit(navController: NavController){
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
-                        Text("Ultimo mantenimiento :  $fechaM",
+                        Text("Ultimo mantenimiento :  ${ if( datePicked!=null) datePicked else fechaM }",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                         )
@@ -167,14 +181,39 @@ fun DatosScreenEdit(navController: NavController){
 
                         DatePickerview(updatedDate)
 
+                        Spacer(Modifier.width(10.dp))
+                        Button(onClick = {
+                            var local = LocalDateTime.now()
+                            datePicked = "${local.dayOfMonth}/${local.monthValue}/${local.year}"
+
+                        }) {
+                            Text(text = "Ahora")
+                        }
+
                     }
 
 
                     Spacer(Modifier.height(16.dp))
 
                     Button(onClick = {
+                        fechaM = datePicked.toString()
+                        val data = HashMap<String, String>()
+                        data["soat"] = soat
+                        data["mantenimiento"] = fechaM
+                        data["placa"] = placa
+                        Log.d("DATA " , "${autor}")
+                        db.collection("usuarios").document(autor)
+                            .set(data, SetOptions.merge())
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    context,
+                                    "Guardado",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            .addOnFailureListener {
+                            }
                         scope.launch {
-
                             datePicked?.let { dataStore.saveDate(it) }
                             dataStore.savePlaca(placa)
                             dataStore.saveSoat(soat)

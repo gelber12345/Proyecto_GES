@@ -36,7 +36,9 @@ fun AppNavigation(
                 type = NavType.StringType
             })
         ) {
-            ComentScreen(navController, it.arguments?.getString("text"))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ComentScreen(navController, it.arguments?.getString("text"))
+            }
         }
         composable(
             route = AppScreens.CuentaScreen.route
@@ -46,7 +48,14 @@ fun AppNavigation(
         composable(
             route = AppScreens.CuentaEditScreen.route
         ) {
-            DatosScreenEdit(navController)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                DatosScreenEdit(navController)
+            }
+        }
+        composable(
+            route = AppScreens.VistaScreen.route
+        ) {
+            Vista()
         }
     }
 }

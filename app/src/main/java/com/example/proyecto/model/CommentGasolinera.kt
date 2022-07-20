@@ -17,7 +17,7 @@ object CommentGasolinera {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val marks: MutableList<Comment> = mutableListOf(
-        Comment(
+        /*Comment(
             "Anonimo","El precio real del GLP es 12.10",
             formatToInstant("2022-06-22T11:25:44.973"),"Primax"
         ),
@@ -28,14 +28,32 @@ object CommentGasolinera {
         Comment(
             "Anonimo","El precio real del GLP es 11.10",
             formatToInstant("2021-06-22T11:25:44.973"),"Primax"
-        ),
+        ),*/
     )
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getListIterator(): MutableListIterator<Comment> {
         return marks.listIterator()
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun add(mark: Comment){
+        if (!contains(mark)){
+            marks.add(mark)
+        }
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getList():  MutableList<Comment> {
+        return marks
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun contains(mark: Comment):Boolean{
+        marks.forEach(){
+            if (it.fecha == mark.fecha){
+                return true
+            }
+        }
+        return false
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     fun getMark(nom: String): Comment {
         marks.forEach() {
@@ -65,7 +83,7 @@ object CommentGasolinera {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun formatToInstant(timeInString: String): LocalDateTime {
+    fun formatToInstant(timeInString: String): LocalDateTime {
 
         val formatter: DateTimeFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnn")
@@ -73,7 +91,7 @@ object CommentGasolinera {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun formatToString(time: LocalDateTime): String? {
+    fun formatToString(time: LocalDateTime): String? {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnn")
         return formatter.format(time)
     }
