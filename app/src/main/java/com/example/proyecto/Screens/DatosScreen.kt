@@ -98,7 +98,7 @@ fun DatosScreen(navController: NavController){
                         Spacer(Modifier.width(10.dp))
                         Text("Placa : $placa",
                             fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Bold,color = Color.Black,
                         )
                     }
                     Spacer(Modifier.height(16.dp))
@@ -115,7 +115,7 @@ fun DatosScreen(navController: NavController){
                         Spacer(Modifier.width(10.dp))
                         Text("SOAT : $soat",
                             fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Bold,color = Color.Black,
                         )
                     }
                     Spacer(Modifier.height(16.dp))
@@ -133,7 +133,7 @@ fun DatosScreen(navController: NavController){
                         Text("Ultimo mantenimiento : $fechaM",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(2.0f),
+                            modifier = Modifier.weight(2.0f),color = Color.Black,
                         )
                     }
                     Spacer(Modifier.height(16.dp))

@@ -130,8 +130,8 @@ fun DetalleScreen(navController: NavController, text: String?) {
                                     text = "Fecha : " + dato.fecha.dayOfMonth.toString() + "/" + dato.fecha.monthValue + "/" + dato.fecha.year.toString() + "\n" +
                                             "Autor : " + dato.Autor + "\n" +
                                             "Descripcion:  " + dato.Description,
-                                    Modifier.padding(start = 4.dp, end = 4.dp)
-
+                                    Modifier.padding(start = 4.dp, end = 4.dp),
+                                            color = Color.Black
                                 )
                             }
                         }

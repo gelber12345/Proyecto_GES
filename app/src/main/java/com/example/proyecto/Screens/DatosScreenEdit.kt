@@ -119,17 +119,22 @@ fun DatosScreenEdit(navController: NavController){
                             tint = Color.Unspecified
                         )
                         Spacer(Modifier.width(10.dp))
-                        Text("Placa : $placa",
+                        Text("Placa : ",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
+                            color = Color.Black,
                         )
 
                         OutlinedTextField(
                             value = placa,
                             onValueChange = { placa = it },
-                            label = { Text("Placa") },
-                            placeholder = { Text(text = "$placa") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                            label = { Text("Placa",color = Color.Black,) },
+                            placeholder = { Text(text = "$placa",color = Color.Black,)
+                                          },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = Color.Black,
+                                unfocusedBorderColor = Color.Black)
                         )
 
                     }
@@ -148,13 +153,17 @@ fun DatosScreenEdit(navController: NavController){
                         Text("SOAT : ",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
+                            color = Color.Black,
                         )
                         OutlinedTextField(
                             value = soat,
                             onValueChange = { soat = it },
-                            label = { Text("SOAT") },
-                            placeholder = { Text(text = "$soat") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                            label = { Text("SOAT",color = Color.Black,) },
+                            placeholder = { Text(text = "$soat",color = Color.Black,) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = Color.Black,
+                                unfocusedBorderColor = Color.Black)
                         )
                     }
                     Spacer(Modifier.height(16.dp))
@@ -171,7 +180,7 @@ fun DatosScreenEdit(navController: NavController){
                         Spacer(Modifier.width(10.dp))
                         Text("Ultimo mantenimiento :  ${ if( datePicked!=null) datePicked else fechaM }",
                             fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Bold,color = Color.Black,
                         )
 
 
@@ -185,9 +194,8 @@ fun DatosScreenEdit(navController: NavController){
                         Button(onClick = {
                             var local = LocalDateTime.now()
                             datePicked = "${local.dayOfMonth}/${local.monthValue}/${local.year}"
-
-                        }) {
-                            Text(text = "Ahora")
+                        }, colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)) ) {
+                            Text(text = "Ahora",)
                         }
 
                     }
